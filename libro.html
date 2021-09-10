@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen-Recuperacion</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+        
+        body {
+            background-image: url('https://tse2.mm.bing.net/th?id=OIP.xv6EKw6kdywqQuDxsi5I7gHaE8&pid=Api&P=0&w=237&h=159');
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-repeat: repeat;
+            background-size: 100%;
+        }
+        
+        .content {
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            padding: 20px
+        }
+        
+        .container {
+            background-color: #555;
+            background-repeat: repeat;
+            background-size: 100%;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2%;
+            box-shadow: 0 0 8px #555;
+            border-radius: 10px;
+        }
+        
+        .formulario {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .formulario input {
+            width: 90%;
+            height: 30px;
+            margin: 0.5rem;
+            border: none;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        
+        .btn {
+            cursor: pointer;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 60%;
+            padding: 0.3rem;
+            background-color: rgb(67, 121, 122);
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #555;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 20px;
+            color: #fff;
+        }
+        
+        .option {
+            margin: 0;
+        }
+        
+        label {
+            font-size: 20px;
+            margin-right: 80%;
+            color: #fff;
+        }
+        
+        select {
+            width: 94%;
+            border: none;
+            padding: 11px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        img {
+            width: 100%;
+            max-width: 105px;
+            height: 100%;
+            min-height: 100px;
+            border-radius: 120px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">EXAMEN DE RECUPERACION</div>
+    <div class="container">
+        <form action="" id="formulario-registro" class="formulario" autocomplete="off">
+            <h1>Ingreso de datos del libro</h1>
+            <br><br>
+            <input type=" text " placeholder="ingrese codigo del libro" id="codigo">
+            <input type=" text " placeholder="ingrese titulo del libro" id="titulo">
+            <input type="text " placeholder="ingrese el autor del libro" id="autor">
+            <input type="text " placeholder="ingrese el editorial del libro " id="editorial">
+            <input type="date" placeholder="ingrese el año de publicacion " id="año">
+            <button type="submit" class="btn btn-success " onclick="guardar()" id="enviar ">Guardar</button>
+            <br><br>
+        </form>
+
+    </div>
+    <script src="validar.js"></script>
+    <script type="text/javascript">
+        /* EXPRESIONES REGULARES **************************************/
+        var expresiones_codigo = /^[a-zA-Z-0-9]{1,4}$/;
+        var expresiones_titulo = /^[a-zA-Z_ -0-9]{4,100}$/;
+        var expresiones_autor = /^[a-zA-Z_ -0-9]{5,60}$/;
+        var expresiones_editorial = /^[a-zA-Z_ 0-9-0]{5,30}$/;
+        var expresiones_año = /^[09-9-0]{1,5}$/;
+        /* VALIDACION DE REGISTRO *************************************/
+        var validarRegistro = document.getElementById("formulario-registro");
+
+        validarRegistro.onsubmit = function() {
+            let codigo = document.getElementById('codigo').value;
+            let titulo = document.getElementById('titulo').value;
+            let autor = document.getElementById('autor').value;
+            let editorial = document.getElementById('editorial').value;
+            let año = document.getElementById('año').value;
+
+            if (codigo == "" || titulo == "" || autor == "" || editorial == "" || año == "") {
+                alert("Todos los campos son obligarorios");
+                return false;
+            }
+
+            if (!expresiones_codigo.test(codigo)) {
+                alert("Error el codigo debe tener maximo 5 caracteres");
+                return false;
+            } else if (!expresiones_titulo.test(titulo)) {
+                alert("Error el titulo debe tener al menos 4 caracteres");
+                return false;
+            } else if (!expresiones_autor.test(autor)) {
+                alert("Error el nombre del autor debe tener al menos 5 caracteres");
+                return false;
+            } else if (!expresiones_editorial.test(editorial)) {
+                alert("Error el campo editorial debe tener maximo 5 caracteres");
+                return false;
+            } else {
+                alert("El libro se guardo correctamente");
+                validarRegistro.reset();
+            }
+        };
+
+        function guardar() {
+            // se llama el datos por medio de la Id function añadir() {
+            let codigo = document.getElementById("codigo").value;
+            let titulo = document.getElementById("titulo").value;
+            let autor = document.getElementById("autor").value;
+            let editorial = document.getElementById("editorial").value;
+            let año = document.getElementById("año").value;
+
+            // se validan los datos 
+            if (codigo.length == 0 || titulo.length == 0 || autor.length == 0 || editorial.length == 0 || año.length == 0) {
+                console.log("llenar todos los campos ");
+            }
+            //se hace el llamado de los datos para guardarlo como archivo JSON
+            else {
+                let datos = {
+                    'codigo': codigo,
+                    'titulo': titulo,
+                    'autor': autor,
+                    'editorial': editorial,
+                    'año': año,
+                };
+                localStorage.setItem('libros', JSON.stringify(biblioteca));
+            }
+        }
+    </script>
+</body>
+
+</html>
